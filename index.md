@@ -1,65 +1,73 @@
-+++
-title = "Ubuntu → Spotify Connect speaker (ALSA-only, headless)"
-date = "2025-10-17"
-description = "Librespot with ALSA backend, no PipeWire. Headless OAuth via SSH tunnel."
-author = "Justin Napolitano"
-taxonomies.categories = ["projects"]
-taxonomies.tags = ["linux","ubuntu","spotify","librespot","alsa","headless","zola"]
-[extra]
-toc = true
-featured = false
-reaction = false
-+++
+---
+slug: "github-librespot"
+title: "librespot"
+repo: "justin-napolitano/librespot"
+githubUrl: "https://github.com/justin-napolitano/librespot"
+generatedAt: "2025-11-23T09:13:33.405042Z"
+source: "github-auto"
+---
 
-## Goal
-Turn an Ubuntu box into a Spotify Connect target named **Apartment Jam** using ALSA only.
 
-## What this does
-- Builds `librespot` with `alsa-backend` and `libmdns`
-- Pins audio to `plughw:0,0`
-- Runs as system user `spotify`
-- Advertises over mDNS and opens firewall
-- Persists creds under `/var/lib/librespot`
+# librespot: Technical Reference and Implementation Notes
 
-## Install
-```bash
-# download and run the installer
-curl -fsSL https://example.com/librespot_alsa_install.sh -o /tmp/librespot_alsa_install.sh
-sudo bash /tmp/librespot_alsa_install.sh
-```
+## Motivation and Problem Statement
 
-## One-time OAuth on a headless box
-On the server:
-```bash
-sudo -u spotify /usr/local/bin/librespot \
-  -n "Apartment Jam" -B alsa -d plughw:0,0 -b 160 -R 75 -E log \
-  -i $(hostname -I | awk '{print $1}') -z 8765 -C /var/lib/librespot -K 8888 -j
-```
-Leave that running. From your laptop:
-```bash
-ssh -L 8888:127.0.0.1:8888 cobra@SERVER_LAN_IP
-# open the printed Spotify URL, finish login, wait for "Logged in"
-```
-Then:
-```bash
-sudo systemctl restart librespot
-```
+The objective is to transform an Ubuntu machine into a Spotify Connect endpoint that operates headlessly and uses the ALSA audio backend exclusively. This setup addresses scenarios where lightweight, non-GUI Spotify playback is required, such as embedded systems, headless servers, or minimal Linux setups without PipeWire.
 
-## Connect from phone
-Same Wi-Fi → play a track → device icon → **Apartment Jam**.
+Spotify Connect allows devices to appear as playback targets in the Spotify ecosystem. librespot is an open-source client implementation enabling this functionality without official Spotify hardware.
 
-## Quick ops
-```bash
-journalctl -u librespot -f
-sudo systemctl restart librespot
-avahi-browse -rt _spotify-connect._tcp | grep "Apartment Jam"
-```
+## How It Works
 
-## Notes
-- If the device never appears, disable AP “client isolation” and allow UDP 5353.
-- To update:
-```bash
-cargo install librespot --locked --no-default-features --features "alsa-backend native-tls with-libmdns"
-sudo install -m0755 ~/.cargo/bin/librespot /usr/local/bin/librespot
-sudo systemctl restart librespot
-```
+The project builds librespot with specific features:
+
+- **ALSA backend**: Ensures audio output is routed through ALSA, bypassing other audio servers like PulseAudio or PipeWire.
+- **libmdns**: Provides mDNS service advertisement, allowing the device to be discoverable on the local network as a Spotify Connect target.
+
+librespot runs as a dedicated system user (`spotify`) for security and process isolation. Audio output is pinned to the hardware device `plughw:0,0` using ALSA device naming conventions.
+
+## Headless OAuth Authentication
+
+Spotify Connect requires OAuth authentication. Since the target device is headless, the authentication flow is facilitated via an SSH tunnel:
+
+1. librespot is launched on the server with flags to enable OAuth and bind to specific IP and ports.
+2. The user establishes an SSH tunnel forwarding the OAuth callback port from the server to their local machine.
+3. The Spotify login URL is accessed locally, completing the OAuth flow.
+4. Upon successful login, librespot receives and stores credentials persistently in `/var/lib/librespot`.
+
+This approach avoids the need for a graphical interface on the server.
+
+## Installation and Deployment
+
+An installation script (`install.sh`) automates building librespot with the required features and setting up systemd service files. The script:
+
+- Downloads and compiles librespot with ALSA and libmdns support
+- Creates the `spotify` system user
+- Sets up directories for persistent credentials
+- Configures systemd service for automatic startup and management
+
+## Operational Details
+
+- The device advertises itself over mDNS using the `_spotify-connect._tcp` service type.
+- Firewall rules must allow UDP port 5353 for mDNS and relevant TCP ports for OAuth and streaming.
+- The systemd service can be monitored via `journalctl` and controlled with `systemctl`.
+
+## Technical Considerations
+
+- ALSA device selection is critical; `plughw:0,0` is hardcoded but may require adjustment depending on hardware.
+- mDNS discovery depends on network configuration; client isolation on Wi-Fi access points must be disabled.
+- OAuth token persistence ensures that reboots or service restarts do not require repeated authentication.
+
+## Updating librespot
+
+The recommended update procedure involves recompiling librespot with the same feature flags and replacing the binary in `/usr/local/bin`. This maintains consistency with the ALSA backend and mDNS support.
+
+## Future Directions
+
+- Incorporate support for PipeWire to broaden compatibility with modern Linux audio stacks.
+- Improve automation of OAuth token refresh to minimize manual intervention.
+- Containerize the application for easier deployment and isolation.
+- Enhance logging and error handling for production readiness.
+
+## Summary
+
+This project provides a practical, minimalistic solution to enable Spotify Connect on headless Ubuntu systems using ALSA. It balances security, usability, and network integration through careful configuration and scripting. The SSH tunnel OAuth flow is a pragmatic solution to headless authentication challenges. The current implementation is best suited for users comfortable with Linux system administration and command-line tooling.
