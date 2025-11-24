@@ -22,6 +22,15 @@ seoSecondaryKeywords:
   - headless ubuntu
   - oauth authentication
 seoOptimized: true
+topicFamily: devtools
+topicFamilyConfidence: 0.95
+topicFamilyNotes: >-
+  The post details setup, configuration, and deployment of librespot on Ubuntu including system user
+  creation, systemd service setup, audio hardware configuration, and headless OAuth authentication.
+  These are all strongly aligned with development environment and system tooling, matching well with
+  the 'devtools' family that includes linux, shell, and reproducible workstation setups. Other
+  families like automation or datascience do not fit as well since the focus is not primarily on
+  scripting pipelines or data workflows.
 ---
 
 # librespot: Technical Reference and Implementation Notes
@@ -87,3 +96,4 @@ The recommended update procedure involves recompiling librespot with the same fe
 ## Summary
 
 This project provides a practical, minimalistic solution to enable Spotify Connect on headless Ubuntu systems using ALSA. It balances security, usability, and network integration through careful configuration and scripting. The SSH tunnel OAuth flow is a pragmatic solution to headless authentication challenges. The current implementation is best suited for users comfortable with Linux system administration and command-line tooling.
+
