@@ -1,12 +1,28 @@
 ---
-slug: "github-librespot"
-title: "librespot"
-repo: "justin-napolitano/librespot"
-githubUrl: "https://github.com/justin-napolitano/librespot"
-generatedAt: "2025-11-23T09:13:33.405042Z"
-source: "github-auto"
+slug: github-librespot
+title: 'librespot: Headless Spotify Connect on Ubuntu with ALSA Audio'
+repo: justin-napolitano/librespot
+githubUrl: https://github.com/justin-napolitano/librespot
+generatedAt: '2025-11-23T09:13:33.405042Z'
+source: github-auto
+summary: >-
+  Technical overview and setup notes for running librespot as a headless Spotify Connect client on
+  Ubuntu using ALSA and SSH-tunneled OAuth authentication.
+tags:
+  - spotify-connect
+  - librespot
+  - ubuntu
+  - alsa
+  - headless
+  - oauth
+seoPrimaryKeyword: librespot
+seoSecondaryKeywords:
+  - spotify connect
+  - alsa audio
+  - headless ubuntu
+  - oauth authentication
+seoOptimized: true
 ---
-
 
 # librespot: Technical Reference and Implementation Notes
 
