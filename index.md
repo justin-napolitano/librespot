@@ -1,13 +1,13 @@
 ---
 slug: github-librespot
-title: 'librespot: Headless Spotify Connect on Ubuntu with ALSA Audio'
+title: Implementing librespot for Headless Spotify Connect on Ubuntu
 repo: justin-napolitano/librespot
 githubUrl: https://github.com/justin-napolitano/librespot
 generatedAt: '2025-11-23T09:13:33.405042Z'
 source: github-auto
 summary: >-
-  Technical overview and setup notes for running librespot as a headless Spotify Connect client on
-  Ubuntu using ALSA and SSH-tunneled OAuth authentication.
+  Detailed guide on setting up librespot as a headless Spotify Connect endpoint
+  using ALSA on Ubuntu systems.
 tags:
   - spotify-connect
   - librespot
@@ -15,22 +15,29 @@ tags:
   - alsa
   - headless
   - oauth
-seoPrimaryKeyword: librespot
+  - systemd
+  - mdns
+seoPrimaryKeyword: librespot spotify connect ubuntu
 seoSecondaryKeywords:
-  - spotify connect
-  - alsa audio
-  - headless ubuntu
+  - headless spotify playback
+  - alsa audio backend
   - oauth authentication
+  - systemd service
+  - mdns discovery
+  - linux audio streaming
 seoOptimized: true
 topicFamily: devtools
 topicFamilyConfidence: 0.95
 topicFamilyNotes: >-
-  The post details setup, configuration, and deployment of librespot on Ubuntu including system user
-  creation, systemd service setup, audio hardware configuration, and headless OAuth authentication.
-  These are all strongly aligned with development environment and system tooling, matching well with
-  the 'devtools' family that includes linux, shell, and reproducible workstation setups. Other
-  families like automation or datascience do not fit as well since the focus is not primarily on
-  scripting pipelines or data workflows.
+  The post details setup, configuration, and deployment of librespot on Ubuntu
+  including system user creation, systemd service setup, audio hardware
+  configuration, and headless OAuth authentication. These are all strongly
+  aligned with development environment and system tooling, matching well with
+  the 'devtools' family that includes linux, shell, and reproducible workstation
+  setups. Other families like automation or datascience do not fit as well since
+  the focus is not primarily on scripting pipelines or data workflows.
+kind: project
+id: github-librespot
 ---
 
 # librespot: Technical Reference and Implementation Notes
