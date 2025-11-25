@@ -1,20 +1,29 @@
 ---
 slug: github-librespot
 id: github-librespot
-title: librespot
+title: 'Setting Up Librespot: A Lightweight Spotify Connect Client'
 repo: justin-napolitano/librespot
 githubUrl: https://github.com/justin-napolitano/librespot
 generatedAt: '2025-11-24T21:35:26.868Z'
 source: github-auto
 summary: >-
-  librespot is a lightweight Spotify Connect client designed to turn an Ubuntu
-  system into a Spotify Connect speaker using the ALSA audio backend. It enables
-  headless operation with OAuth authentication via SSH tunneling, making it
-  suitable for embedded or server environments without graphical interfaces.
-tags: []
-seoPrimaryKeyword: ''
-seoSecondaryKeywords: []
-seoOptimized: false
+  Learn how to install and configure Librespot on Ubuntu for seamless Spotify
+  Connect functionality.
+tags:
+  - librespot
+  - spotify connect
+  - alsa
+  - systemd
+  - mdns
+  - rust
+seoPrimaryKeyword: librespot installation guide
+seoSecondaryKeywords:
+  - spotify connect client
+  - ubuntu audio streaming
+  - headless oauth authentication
+  - alsa audio backend
+  - systemd service management
+seoOptimized: true
 topicFamily: null
 topicFamilyConfidence: null
 kind: project
