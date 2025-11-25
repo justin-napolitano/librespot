@@ -7,8 +7,8 @@ githubUrl: https://github.com/justin-napolitano/librespot
 generatedAt: '2025-11-24T21:35:26.868Z'
 source: github-auto
 summary: >-
-  Learn how to install and configure Librespot on Ubuntu for seamless Spotify
-  Connect functionality.
+  Learn how to install and configure Librespot on Ubuntu for headless Spotify
+  Connect functionality using ALSA audio backend.
 tags:
   - librespot
   - spotify connect
@@ -16,12 +16,13 @@ tags:
   - systemd
   - mdns
   - rust
+  - oauth
 seoPrimaryKeyword: librespot installation guide
 seoSecondaryKeywords:
   - spotify connect client
-  - ubuntu audio streaming
-  - headless oauth authentication
-  - alsa audio backend
+  - ubuntu audio setup
+  - headless operation
+  - oauth authentication
   - systemd service management
 seoOptimized: true
 topicFamily: null
